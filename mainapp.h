@@ -29,5 +29,6 @@ private slots:
     void setA();
     void setB();
     void add();
+    void subs();
 };
 #endif // MAINAPP_H
