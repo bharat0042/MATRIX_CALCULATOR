@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
@@ -21,6 +21,10 @@ set(PROJECT_SOURCES
         mainapp.ui
         matrix.h
         matrix.cpp
+)
+
+include_directories(
+    " ../../libs/armadillo/include/"
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -40,7 +44,21 @@ else()
     endif()
 endif()
 
-target_link_libraries(MatrixCalculator PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(MatrixCalculator PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+    "../../libs/arma-addon/x86_64/liblapack"
+    "../../libs/arma-addon/x86_64/libblas")
+
+add_custom_command (TARGET MatrixCalculator POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "../../libs/arma-addon/x86_64/liblapack.dll"
+    ${CMAKE_BINARY_DIR}
+)
+
+add_custom_command (TARGET MatrixCalculator POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "../../libs/arma-addon/x86_64/libblas.dll"
+    ${CMAKE_BINARY_DIR}
+)
 
 set_target_properties(MatrixCalculator PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

@@ -1,43 +1,108 @@
 #include "matrix.h"
 
-mx::MatrixNd::MatrixNd(int pRow, int pCol, Matrix pMat) :
-    m_Row(pRow),
-    m_Col(pCol)
-{
-    m_Mat = pMat;
-}
+mx::MatrixNd::MatrixNd(){}
 
-int mx::MatrixNd::getRows() const
+void mx::MatrixNd::setA(int pRows, int pCols, Matrix pA)
 {
-    return m_Row;
-}
-
-int mx::MatrixNd::getCols() const
-{
-    return m_Col;
-}
-
-std::vector<double> mx::MatrixNd::operator[](int index) const
-{
-    return m_Mat[index];
-}
-
-mx::MatrixNd mx::add(const mx::MatrixNd& a, const mx::MatrixNd& b)
-{
-    if(a.getRows() != b.getRows() || a.getCols() != b.getCols())
+    arma::mat temp(pRows, pCols, arma::fill::zeros);
+    for(int i = 0; i < pRows; i++)
     {
-        mx::Matrix mat(0, std::vector<double>(0));
-        mx::MatrixNd res(0, 0, mat);
-        return res;
-    }
-    mx::Matrix fin(a.getRows(), std::vector<double>(a.getCols()));
-    for(int i = 0 ; i < a.getRows(); i++)
-    {
-        for(int j = 0; j < a.getCols(); j++)
+        for(int j = 0; j < pCols; j++)
         {
-            fin[i][j] = a[i][j] + b[i][j];
+            temp(i, j) = pA[i][j];
         }
     }
-    mx::MatrixNd finRes(a.getRows(), a.getCols(), fin);
-    return finRes;
+    m_a = temp;
+}
+
+void mx::MatrixNd::setB(int pRows, int pCols, Matrix pB)
+{
+    arma::mat temp(pRows, pCols, arma::fill::zeros);
+    for(int i = 0; i < pRows; i++)
+    {
+        for(int j = 0; j < pCols; j++)
+        {
+            temp(i, j) = pB[i][j];
+        }
+    }
+    m_b = temp;
+}
+
+arma::mat mx::MatrixNd::getA()
+{
+    return m_a;
+}
+
+arma::mat mx::MatrixNd::getB()
+{
+    return m_b;
+}
+
+arma::mat mx::MatrixNd::addMat()
+{
+    return (m_a + m_b);
+}
+
+arma::mat mx::MatrixNd::subMat()
+{
+    return (m_a - m_b);
+}
+
+arma::mat mx::MatrixNd::mulMat()
+{
+    return (m_a * m_b);
+}
+
+double mx::MatrixNd::matDet(bool isA)
+{
+    if(isA)
+    {
+        return arma::det(m_a);
+    }
+    return arma::det(m_b);
+}
+
+bool mx::MatrixNd::invMat(bool isA, arma::mat& inv)
+{
+    if(isA)
+    {
+        if(matDet(true) == 0)
+        {
+            return false;
+        }
+        inv = arma::inv(m_a);
+        return true;
+    }
+    else
+    {
+        if(matDet(false) == 0)
+        {
+            return false;
+        }
+        inv = arma::inv(m_b);
+        return true;
+    }
+}
+
+arma::mat mx::MatrixNd::tpose(bool isA)
+{
+    if(isA)
+    {
+        return m_a.t();
+    }
+    return m_b.t();
+}
+
+arma::mat mx::MatrixNd::sq(bool isA)
+{
+    if(isA)
+    {
+        return arma::square(m_a);
+    }
+    return arma::square(m_b);
+}
+
+double mx::MatrixNd::accuA()
+{
+    return arma::accu(m_a);
 }

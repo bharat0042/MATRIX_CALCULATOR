@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <vector>
+#include <armadillo>
 
 namespace mx
 {
@@ -10,16 +11,22 @@ namespace mx
     class MatrixNd
     {
     private:
-        int m_Row;
-        int m_Col;
-        Matrix m_Mat;
+        arma::mat m_a;
+        arma::mat m_b;
     public:
-        MatrixNd(int pRow = 0, int pCol = 0, Matrix pMat = {{}});
-        int getRows() const;
-        int getCols() const;
-        std::vector<double> operator[](int index) const;
+        MatrixNd();
+        void setA(int pRows, int pCols, Matrix pA);
+        void setB(int pRows, int pCols, Matrix pB);
+        arma::mat getA();
+        arma::mat getB();
+        arma::mat addMat();
+        arma::mat subMat();
+        arma::mat mulMat();
+        double matDet(bool isA);
+        bool invMat(bool isA, arma::mat& inv);
+        arma::mat tpose(bool isA);
+        arma::mat sq(bool isA);
+        double accuA();
     };
-
-    MatrixNd add(const MatrixNd& a, const MatrixNd& b);
 }
 #endif // MATRIX_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>684</width>
-    <height>348</height>
+    <width>748</width>
+    <height>338</height>
    </rect>
   </property>
   <property name="font">
@@ -56,7 +56,7 @@
      <rect>
       <x>450</x>
       <y>40</y>
-      <width>221</width>
+      <width>291</width>
       <height>231</height>
      </rect>
     </property>
@@ -233,7 +233,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="MulBtnOn">
+      <widget class="QPushButton" name="mulBtn">
        <property name="font">
         <font>
          <family>Calibri</family>
@@ -249,7 +249,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="MulBtn2">
+      <widget class="QPushButton" name="mulBtn2">
        <property name="font">
         <font>
          <family>Calibri</family>
@@ -263,7 +263,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>B*A</string>
+        <string>Accu(A)</string>
        </property>
       </widget>
      </item>
@@ -462,7 +462,7 @@
      <rect>
       <x>9</x>
       <y>299</y>
-      <width>661</width>
+      <width>731</width>
       <height>31</height>
      </rect>
     </property>
@@ -478,7 +478,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Set(A)</string>
+        <string>Validate and Set(A)</string>
        </property>
       </widget>
      </item>
@@ -493,37 +493,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Set(B)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="resetABtn">
-       <property name="font">
-        <font>
-         <family>Calibri</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Reset(A)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="resetBBtn">
-       <property name="font">
-        <font>
-         <family>Calibri</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Reset(B)</string>
+        <string>Validate and Set(B)</string>
        </property>
       </widget>
      </item>
